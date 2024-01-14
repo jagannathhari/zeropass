@@ -1,0 +1,7 @@
+build/
+build-mingw/
+build-win_32/
+subprojects/packagecache/
+subprojects/SDL2-2.28.5/
+.cache/
+
