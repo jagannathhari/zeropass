@@ -105,17 +105,15 @@ void zeropass_ui(struct nk_context *ctx, int w, int h) {
                                            33, nk_filter_template);
         }
 
-        if (!chk_template) {
+        nk_layout_row_dynamic(ctx, 0, 2 - chk_template);
 
-            nk_layout_row_dynamic(ctx, 0, 2);
+        if (!chk_template) {
             nk_property_int(ctx, "Length", strlen(custom_template),
                             &password_len, 32, 1, 1);
-            nk_property_int(ctx, "Rounds", 0, &rounds, 1000, 1, 3);
-        } else {
+        } 
 
-            nk_layout_row_dynamic(ctx, 0, 1);
-            nk_property_int(ctx, "Rounds", 0, &rounds, 1000, 1, 3);
-        }
+        nk_property_int(ctx, "Rounds", 0, &rounds, 1000, 1, 3);
+
 
         if (chk_capital) {
             template[0] = 'A';
