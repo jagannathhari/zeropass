@@ -86,6 +86,8 @@ int main(int argc, char *argv[]) {
 
     /* GUI */
     ctx = nk_sdl_init(win, renderer);
+
+    ctx->style.window.padding = (struct nk_vec2){.x = 20, .y = 10};
     /* Load Fonts: if none of these are loaded a default font will be used  */
     /* Load Cursor: if you uncomment cursor loading please hide the cursor */
     {
