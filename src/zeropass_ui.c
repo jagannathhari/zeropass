@@ -96,7 +96,7 @@ void zeropass_ui(struct nk_context *ctx, int w, int h) {
         nk_checkbox_label(ctx, "!@#", &chk_special);
 
         nk_layout_row_dynamic(ctx,0,1);
-        nk_label(ctx,"A(UpperCase) a(LowerCase) n(Number) S(SpecialChar)",NK_TEXT_ALIGN_CENTERED);
+        nk_label(ctx,"A(UpperCase) a(LowerCase) n(Number) S($%@)",NK_TEXT_ALIGN_CENTERED);
 
         nk_layout_row_dynamic(ctx, 0, 2);
         nk_checkbox_label(ctx, "Custom Template", &chk_template);
