@@ -114,30 +114,11 @@ void zeropass_ui(struct nk_context *ctx, int w, int h) {
 
         nk_property_int(ctx, "Rounds", 0, &rounds, 1000, 1, 3);
 
+        template[0] = (chk_capital) ? 'A' : ' ';
+        template[1] = (chk_special) ? 'S' : ' ';
+        template[2] = (chk_number ) ? 'n' : ' ';
+        template[3] = (chk_lower  ) ? 'a' : ' ';
 
-        if (chk_capital) {
-            template[0] = 'A';
-        } else {
-            template[0] = ' ';
-        }
-
-        if (chk_special) {
-            template[1] = 'S';
-        } else {
-            template[1] = ' ';
-        }
-
-        if (chk_lower) {
-            template[2] = 'a';
-        } else {
-            template[2] = ' ';
-        }
-
-        if (chk_number) {
-            template[3] = 'n';
-        } else {
-            template[3] = ' ';
-        }
         nk_layout_row_dynamic(ctx, 0, 1);
         if (nk_button_label(ctx, "Generate & Copy")) {
             remove_spaces(template);
