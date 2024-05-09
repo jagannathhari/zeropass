@@ -7,6 +7,8 @@ zeropass_sources = [
   'src/zeropass/utils.c',
 ]
 
+sqlite3 = ['src/sqlite3/sqlite3.c']
+
 add_global_arguments('-Wl,-rpath=./', language: 'c')
 if get_option('buildtype') == 'release'
   add_global_arguments('-DRELEASE', language: 'c')
@@ -91,13 +93,13 @@ else
 endif
 executable(
   'zeropass',
-  sources: ['src/main.c'] + zeropass_sources,
+  sources: ['src/main.c'] + zeropass_sources + sqlite3,
   include_directories: [include_directories('src/zeropass'),include_dir],
   c_args: c_flags,
   dependencies: [
     sdl_dep,sdlmain_dep
   ],
-  link_args: deps,
+  link_args: deps + ['-lpthread'],
   gui_app : true,
 )
 
