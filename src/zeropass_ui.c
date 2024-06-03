@@ -59,7 +59,6 @@ void zeropass_ui(struct nk_context *ctx, int w, int h) {
 
     if (nk_begin(ctx, "ZeroPass", nk_rect(0, 0, w, h), NK_WINDOW_NO_SCROLLBAR)) {
 
-        /* ------------------------------------------------------------------------ */
         nk_layout_row_begin(ctx, NK_DYNAMIC, 0, 2);
 
         nk_layout_row_push(ctx, 0.33f);
@@ -70,7 +69,6 @@ void zeropass_ui(struct nk_context *ctx, int w, int h) {
 
         nk_layout_row_end(ctx);
 
-        /* ------------------------------------------------------------------------ */
         nk_layout_row_begin(ctx, NK_DYNAMIC, 0, 2);
 
         nk_layout_row_push(ctx, 0.33f);
@@ -81,7 +79,6 @@ void zeropass_ui(struct nk_context *ctx, int w, int h) {
 
         nk_layout_row_end(ctx);
 
-        /* ------------------------------------------------------------------------ */
         nk_layout_row_begin(ctx, NK_DYNAMIC, 0, 2);
 
         nk_layout_row_push(ctx, 0.33f);
@@ -91,7 +88,6 @@ void zeropass_ui(struct nk_context *ctx, int w, int h) {
         password_input(ctx, NK_EDIT_FIELD, master_password, 16, NULL);
 
         nk_layout_row_end(ctx);
-        /* ------------------------------------------------------------------------ */
 
         nk_layout_row_dynamic(ctx, 0, 4);
         nk_checkbox_label(ctx, "A-Z", &chk_capital);
@@ -99,12 +95,8 @@ void zeropass_ui(struct nk_context *ctx, int w, int h) {
         nk_checkbox_label(ctx, "0-9", &chk_number);
         nk_checkbox_label(ctx, "!@#", &chk_special);
 
-        /* ------------------------------------------------------------------------ */
-
         nk_layout_row_dynamic(ctx,0,1);
         nk_label(ctx,"A(UpperCase) a(LowerCase) n(Number) S($%@)",NK_TEXT_ALIGN_CENTERED);
-
-        /* ------------------------------------------------------------------------ */
 
         nk_layout_row_dynamic(ctx, 0, 2);
         nk_checkbox_label(ctx, "Custom Template", &chk_template);
@@ -113,7 +105,7 @@ void zeropass_ui(struct nk_context *ctx, int w, int h) {
                                            33, nk_filter_template);
         }
 
-        nk_layout_row_dynamic(ctx, 0, 2 - chk_template); // if chk_template is checked then -1
+        nk_layout_row_dynamic(ctx, 0, 2 - chk_template);
 
         if (!chk_template) {
             nk_property_int(ctx, "Length", strlen(custom_template),
