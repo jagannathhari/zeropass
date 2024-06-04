@@ -81,7 +81,7 @@ static void shuffle_array(unsigned int seed, unsigned int len, char *string) {
     unsigned int i;
     int j;
     char temp;
-    for (i = 0; i < len; i++) {
+    for (i = 0; i < len-2; i++) {
         j = rand() % len;
         temp = string[i];
         string[i] = string[j];
