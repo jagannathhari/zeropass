@@ -6,10 +6,8 @@
 #include <string.h>
 
 
-int compare(const void *a, const void *b) {
-    const char *char_a = (const char *)a;
-    const char *char_b = (const char *)b;
-    return *char_a - *char_b;
+int char_cmp(const void *a, const void *b) {
+    return *((const char *)a) - *((const char *)b);
 }
 
 /*
@@ -56,7 +54,8 @@ static void sha512_base64_encode(const uint8_t *input, size_t input_len,
 static void _sha512_rounds(uint8_t *input, int rounds) {
     struct sha512_state state;
     sha512_init(&state);
-    for (int i = 1; i < rounds; ++i) {
+    int i;
+    for (i = 1; i < rounds; ++i) {
         sha512_add(&state, input, SHA512_HASH_SIZE);
         sha512_final(&state, input);
     }
@@ -81,7 +80,7 @@ static void shuffle_array(unsigned int seed, unsigned int len, char *string) {
     unsigned int i;
     int j;
     char temp;
-    for (i = 0; i < len; i++) {
+    for (i = 0; i < len-2; i++) {
         j = rand() % len;
         temp = string[i];
         string[i] = string[j];
@@ -103,8 +102,8 @@ static void shuffle_array(unsigned int seed, unsigned int len, char *string) {
  */
 
 static char *_multiply_string(const char *to_include, unsigned int n) {
-    char *template = (char *)malloc(sizeof(char) * n + 1);
-    if (template == NULL) {
+    char *template = malloc(sizeof(*template) * n + 1);
+    if (!template) {
         fprintf(stderr, "Unable to allocate memory\n");
         exit(EXIT_FAILURE);
     }
@@ -122,10 +121,11 @@ static char *get_template(unsigned int len, const char *to_include, char seed) {
     char *template;
 
     if (strlen(to_include) == len) {
-        template = (char *)malloc(len + 1);
+        template = malloc(sizeof(*template)*len + 1);
         strcpy(template, to_include);
         return template;
     }
+
     template = _multiply_string(to_include, len);
     shuffle_array((unsigned int)seed, len, template);
     return template;
@@ -134,8 +134,8 @@ static char *get_template(unsigned int len, const char *to_include, char seed) {
 char *get_masterkey(const char *username, const char *site,
                     const char *master_password, int rounds) {
 
-    char *base64_hash = (char *)malloc(sizeof(char) * 89);
-    if (base64_hash == NULL) {
+    char *base64_hash = malloc(sizeof(*base64_hash)*100);
+    if (!base64_hash) {
         fprintf(stderr, "Unable to allocate memory\n");
         exit(EXIT_FAILURE);
     }
@@ -170,15 +170,18 @@ static char get_password_char(const char template_char, const char key_char) {
 char *get_password(const char *to_include, const char *master_key,
                    long unsigned int password_len) {
     size_t to_include_len = strlen(to_include);
-    char *temp = (char *)malloc(sizeof(char) * to_include_len + 1);
-    char *template;
-    if (temp == NULL) {
+    char *temp = malloc(to_include_len + 1);
+    if (!temp) {
         fprintf(stderr, "Unable to allocate memory\n");
         exit(EXIT_FAILURE);
     }
+
     strcpy(temp, to_include);
-    template = get_template(password_len, temp, master_key[0]);
-    for (unsigned int i = 0; template[i] != '\0'; i++) {
+
+    char *template = get_template(password_len, temp, master_key[0]);
+
+    unsigned int i;
+    for ( i = 0; template[i] != '\0'; i++) {
         template[i] = get_password_char(template[i], master_key[i]);
     }
     free(temp);
