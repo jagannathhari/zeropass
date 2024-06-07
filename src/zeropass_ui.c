@@ -1,8 +1,8 @@
 
-#ifndef RELEASE
+#ifndef NK_NUKLEAR_H_
     #define NK_INCLUDE_FIXED_TYPES
     #include "SDL_render.h"
-#define NK_INCLUDE_STANDARD_IO
+    #define NK_INCLUDE_STANDARD_IO
     #define NK_INCLUDE_STANDARD_VARARGS
     #define NK_INCLUDE_DEFAULT_ALLOCATOR
     #define NK_INCLUDE_VERTEX_BUFFER_OUTPUT
@@ -135,7 +135,6 @@ void zeropass_ui(struct nk_context *ctx, int w, int h) {
             char *password = get_password(
                 (chk_template == 1) ? custom_template : template, master_key,
                 (chk_template == 1) ? strlen(custom_template) : (size_t)password_len);
-            
             SDL_SetClipboardText(password);
             free(master_key);
             free(password);
