@@ -42,15 +42,15 @@ static void remove_spaces(char *s) {
 
 void zeropass_ui(struct nk_context *ctx, int w, int h) {
 
-    static char username[255] = "\0";
-    static char site[255] = "\0";
+    static char username[255]   = "\0";
+    static char template[5]     = "ASan";
+    static char site[255]       = "\0";
     static char master_password[16];
-    static char template[5] = "ASan";
 
-    static int chk_capital = nk_true;
-    static int chk_lower = nk_true;
-    static int chk_number = nk_true;
-    static int chk_special = nk_true;
+    static int chk_capital  = nk_true;
+    static int chk_lower    = nk_true;
+    static int chk_number   = nk_true;
+    static int chk_special  = nk_true;
     static int chk_template = nk_false;
     static int password_len = 16;
 
@@ -136,6 +136,7 @@ void zeropass_ui(struct nk_context *ctx, int w, int h) {
                 (chk_template == 1) ? custom_template : template, master_key,
                 (chk_template == 1) ? strlen(custom_template) : (size_t)password_len);
             SDL_SetClipboardText(password);
+
             free(master_key);
             free(password);
         }
