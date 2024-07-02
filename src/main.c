@@ -23,8 +23,8 @@
 #define NK_SDL_RENDERER_IMPLEMENTATION
 #include <nuklear_sdl_renderer.h>
 
-#define WINDOW_WIDTH 500
-#define WINDOW_HEIGHT 370
+#define WINDOW_WIDTH 520
+#define WINDOW_HEIGHT 380
 #include "zeropass_ui.c"
 #include <resources.c>
 int main(int argc, char *argv[]) {
